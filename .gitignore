@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+.vs/
+.idea/
+.env
+.env.*
+!.env.example
+**/__pycache__/
+*.user
+*.suo
