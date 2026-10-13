@@ -1,7 +1,7 @@
 # وضعیت فعلی بازارکاو
 
 تاریخ: 2026-10-13
-مرحله: TENANT_MAPSTER_IMPLEMENTED_PENDING_CI
+مرحله: TENANT_MAPSTER_COMPLETED
 Stop-State: USER_REVIEW
 automaticNextImplementationTask: NONE
 
@@ -12,7 +12,7 @@ automaticNextImplementationTask: NONE
 - configuration صریح و compile‌شده؛ بدون GlobalSettings و بدون وابستگی Domain به Mapster.
 - گارد G17 و regressionهای آن اضافه شدند.
 - محلی: build بدون خطا و هشدار، 5/5 تست نگاشت، 8/8 تست معماری و 7/7 تست گارد.
-- CI نگاشت PostgreSQL در این snapshot هنوز در انتظار است؛ شواهد زیر تاریخچه تأییدهای قبلی‌اند.
+- CI Mapster موفق است: 69/69 تست برنامه و 7/7 تست گارد، بدون شکست یا skip.
 
 - اصلاح مرز HTTP: سه Request از Contracts به فایل‌های مستقل Presentation/Requests منتقل شدند.
 - گارد G16 در AGENTS.md، قواعد Cursor، سند معماری و ابزار CI اضافه شد.
@@ -37,7 +37,16 @@ automaticNextImplementationTask: NONE
 - solution، نسخه‌های مرکزی، lock fileها، global.json و گیت restore/build/test در CI.
 - تست‌های واحد، HTTP با TestServer و وابستگی assembly.
 
-## شواهد اصلاح جاری
+## شواهد Mapster جاری
+
+Code-SHA: b8f24b1fa2cfa39efe11da59116c9892c6870e58
+CI: https://github.com/mrnikiemami-code/BazarKav/actions/runs/38435700863
+Release build: صفر خطا و صفر هشدار.
+UnitTests: 33/33؛ IntegrationTests با PostgreSQL واقعی: 28/28؛ ArchitectureTests: 8/8.
+تست‌های گارد: 7/7.
+جزئیات در docs/architecture/evidence/TENANT-MAPSTER-001.md.
+
+## شواهد اصلاح مرز HTTP قبلی
 
 Code-SHA: eb1ed75325b2b4e0fb23c7f17b13d6cb756ae925
 CI: https://github.com/mrnikiemami-code/BazarKav/actions/runs/38429067443
