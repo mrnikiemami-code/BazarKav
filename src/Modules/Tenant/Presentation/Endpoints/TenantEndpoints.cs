@@ -5,6 +5,7 @@ using BazarKav.Tenant.Application.Commands.RenameTenant;
 using BazarKav.Tenant.Application.Queries.GetTenant;
 using BazarKav.Tenant.Application.Queries.ListTenants;
 using BazarKav.Tenant.Contracts;
+using BazarKav.Tenant.Presentation.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

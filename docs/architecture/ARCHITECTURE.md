@@ -131,6 +131,7 @@ src/
         DependencyInjection.cs
       Presentation/
         Endpoints/
+        Requests/
         DependencyInjection.cs
       Contracts/
   WebApp/
@@ -153,6 +154,7 @@ tools/
 ## ۶. MediatR، Command، Query و Validation
 
 - endpoint فقط درخواست را به ISender ارسال می‌کند؛ دسترسی مستقیم به DbContext، Repository یا آداپتر ندارد.
+- DTO ورودی HTTP با پسوند Request فقط در Presentation/Requests و در فایل مستقل هم‌نام تعریف می‌شود؛ endpoint آن را به Command یا Query تبدیل می‌کند. این wrapperها در Contracts قرار نمی‌گیرند.
 - Command تغییر وضعیت داخلی برنامه، مانند تنظیم قاعده، تطبیق یا شروع کار تحلیل را بیان می‌کند؛ مجوز تغییر حسابداری بیرونی نیست.
 - Query فقط می‌خواند؛ تغییر وضعیت کسب‌وکار یا شروع پنهانی همگام‌سازی ممنوع است.
 - handlerهای Command در Commands و handlerهای Query در Queries قرار می‌گیرند.

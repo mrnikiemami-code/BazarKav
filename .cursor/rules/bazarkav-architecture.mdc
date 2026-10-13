@@ -6,6 +6,7 @@ alwaysApply: true
 Read and follow /AGENTS.md, /docs/architecture/ARCHITECTURE.md and /docs/architecture/GUARDS.md.
 Separate Commands, Queries and Validation. Keep Domain technology-independent.
 Host is composition only. Cross-module dependencies go through Contracts only.
+HTTP *Request DTOs belong in Presentation/Requests, one DTO per matching file; never in Contracts or Application. Keep *Command and *Query separate from HTTP DTOs.
 Accounting source access is read-only. Preserve business isolation and source identity.
 Run the structural architecture guard and appropriate checks for the actual change.
 Do not start another implementation task automatically.

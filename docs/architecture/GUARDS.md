@@ -19,6 +19,7 @@
 | G13 | نسخه بسته‌ها ثابت؛ ارتقا و تغییر معماری با تصمیم مستند |
 | G14 | Query بدون تغییر وضعیت؛ Command داخلی بدون نوشتن در حسابداری |
 | G15 | registry مدیریت Tenant فقط با principal احرازشده و permission مدیریتی؛ header انتخاب Tenant مجوز نیست |
+| G16 | ورودی HTTP با پسوند Request فقط در Presentation/Requests و هر نوع در فایل مستقل؛ Contracts محل wrapperهای HTTP نیست |
 
 ## گارد خودکار فعلی
 
@@ -29,6 +30,7 @@ python3 tools/architecture/check_architecture.py
 ```
 
 این ابزار فقط بررسی ساختاری است: محل پروژه و فایل، ارجاع مجاز، وابستگی دوری، منع package و project reference در Domain/Contracts و تفکیک فایل‌های Command، Query و Validator.
+گارد Request علاوه بر نام فایل، declaration نوع را نیز بررسی می‌کند؛ فایل تجمیعی مانند TenantRequests.cs نمی‌تواند محل نادرست را پنهان کند. پسوند Request برای DTO ورودی HTTP رزرو است. تست معماری Tenant، RequestType واقعی metadata endpoint را هم بررسی می‌کند.
 ProjectReference مشترک در فایل props/targets فعلاً ممنوع است تا ارجاع پنهان ایجاد نشود.
 کد مشترک تولید باید داخل BuildingBlocks باشد؛ C# خارج از ریشه‌های تعیین‌شده مجاز نیست.
 

@@ -5,6 +5,7 @@ Read docs/architecture/ARCHITECTURE.md, docs/architecture/GUARDS.md and docs/pla
 - User instructions take precedence. Work only on the requested scope.
 - Preserve the agreed folder layout: separate Application/Commands, Application/Queries and Application/Validation. Never colocate validators with commands or queries.
 - Clean Architecture inside each module; cross-module references only through Contracts.
+- HTTP input DTOs belong only in module Presentation/Requests, one public DTO per matching file. The *Request suffix is reserved for these HTTP DTOs. Never put HTTP wrappers in Contracts or Application; Application uses separate *Command and *Query types. Contracts is for shared module contracts, not an HTTP DTO collection. State the consumer/purpose when adding a shared contract.
 - Domain and Contracts have no package/project references. Domain must not know MediatR, EF, HTTP, logging or source adapters.
 - Host is composition only. Module work must not introduce business logic, handlers, endpoints or feature folders into Host.
 - BazarKav is analytics-only. Accounting adapters may read sources; they must never create/update/delete accounting records.

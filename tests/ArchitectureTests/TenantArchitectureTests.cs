@@ -1,6 +1,11 @@
 using BazarKav.Tenant.Application.Commands.CreateTenant;
 using BazarKav.Tenant.Contracts;
 using BazarKav.Tenant.Presentation.Endpoints;
+using BazarKav.Tenant.Presentation;
+using BazarKav.BuildingBlocks.Application;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http.Metadata;
+using Microsoft.AspNetCore.Routing;
 using FluentValidation;
 using MediatR;
 using Xunit;
@@ -10,6 +15,33 @@ namespace BazarKav.ArchitectureTests;
 
 public sealed class TenantArchitectureTests
 {
+    [Fact]
+    public void Contracts_do_not_contain_http_request_wrappers()
+    {
+        Assert.DoesNotContain(typeof(TenantDto).Assembly.GetExportedTypes(),
+            type => type.Name.EndsWith("Request", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void Actual_endpoint_body_types_belong_to_presentation_requests()
+    {
+        var builder = WebApplication.CreateBuilder();
+        builder.Services.AddBazarKavApplication(TenantPresentation.ApplicationAssembly);
+        builder.Services.AddTenantPresentation();
+        using var app = builder.Build();
+        app.MapTenantEndpoints();
+        var bodies = ((IEndpointRouteBuilder)app).DataSources.SelectMany(source => source.Endpoints)
+            .Select(endpoint => endpoint.Metadata.GetMetadata<IAcceptsMetadata>()?.RequestType)
+            .Where(type => type is not null).Cast<Type>().ToArray();
+        Assert.Equal(3, bodies.Length);
+        Assert.All(bodies, type =>
+        {
+            Assert.Equal(typeof(TenantEndpoints).Assembly, type.Assembly);
+            Assert.Equal("BazarKav.Tenant.Presentation.Requests", type.Namespace);
+            Assert.EndsWith("Request", type.Name);
+        });
+    }
+
     [Fact]
     public void Domain_and_contracts_have_only_system_dependencies()
     {

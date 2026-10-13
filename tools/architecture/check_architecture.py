@@ -134,6 +134,16 @@ for path in (ROOT / "src").rglob("*.cs"):
             continue
         if not any(project.parent == ROOT.joinpath(*p[:4]) for project in projects):
             fail(path, "module layer needs its own csproj")
+        # *Request is reserved for HTTP input DTOs. Inspect declarations as well as
+        # filenames so a combined TenantRequests.cs cannot bypass the location guard.
+        request_types = re.findall(
+            r"\b(?:class|record(?:\s+(?:class|struct))?|struct)\s+([A-Za-z_]\w*Request)\b",
+            path.read_text(encoding="utf-8"))
+        if request_types or path.name.endswith("Request.cs"):
+            if p[3] != "Presentation" or len(p) < 6 or p[4] != "Requests":
+                fail(path, "HTTP request DTO belongs in Presentation/Requests, never Contracts")
+            if len(request_types) != 1 or path.stem != request_types[0]:
+                fail(path, "each HTTP request DTO needs its own matching file")
         required = None
         if re.search(r"(Command|CommandHandler)\.cs$", path.name):
             required = "Commands"

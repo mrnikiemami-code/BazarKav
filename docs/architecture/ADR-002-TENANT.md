@@ -30,7 +30,7 @@ Active در این مرحله یعنی کسب‌وکار توسط مدیر فع�
 پنج پروژه Domain، Application، Infrastructure، Presentation و Contracts.
 Domain و Contracts به بسته یا پروژه دیگری وابسته نیستند.
 Command، Query و Validation پوشه‌های مستقل دارند؛ ۳ Command، ۲ Query، ۵ handler و ۵ validator.
-DTOهای عمومی در Contracts هستند؛ هیچ Entity یا DbContext از endpoint خارج نمی‌شود.
+DTOهای مشترک خواندن در Contracts هستند؛ DTO ورودی HTTP فقط در Presentation/Requests است، هر نوع در فایل مستقل. endpoint آن را به Command تبدیل می‌کند؛ هیچ Entity یا DbContext از endpoint خارج نمی‌شود.
 
 ## ذخیره‌سازی و UnitOfWork
 

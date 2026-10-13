@@ -12,6 +12,7 @@ using BazarKav.Tenant.Infrastructure.Persistence;
 using BazarKav.Tenant.Infrastructure.Persistence.Repositories;
 using BazarKav.Tenant.Presentation;
 using BazarKav.Tenant.Presentation.Endpoints;
+using BazarKav.Tenant.Presentation.Requests;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

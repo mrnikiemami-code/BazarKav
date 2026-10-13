@@ -1,11 +1,17 @@
 # وضعیت فعلی بازارکاو
 
 تاریخ: 2026-10-13
-مرحله: TENANT_001_COMPLETED
+مرحله: TENANT_HTTP_REQUEST_BOUNDARY_FIX_PENDING_CI
 Stop-State: USER_REVIEW
 automaticNextImplementationTask: NONE
 
 ## انجام‌شده
+
+- اصلاح مرز HTTP: سه Request از Contracts به فایل‌های مستقل Presentation/Requests منتقل شدند.
+- گارد G16 در AGENTS.md، قواعد Cursor، سند معماری و ابزار CI اضافه شد.
+- گارد declaration نوع و نام فایل را بررسی می‌کند؛ تست metadata ورودی واقعی endpoint نیز اضافه شد.
+- بررسی محلی این اصلاح: build بدون خطا و هشدار؛ ArchitectureTests 8/8 و regression گارد 4/4.
+- نتیجه CI اصلاح جاری هنگام این snapshot هنوز در انتظار است؛ شواهد زیر مربوط به baseline قبلی Tenant هستند.
 
 - تصمیم قطعی: هر کسب‌وکار مستقل یک Tenant؛ یک کاربر می‌تواند چند Tenant داشته باشد.
 - ماژول Tenant با پنج پروژه مستقل، سه Command، دو Query و پنج validator.
@@ -35,7 +41,7 @@ automaticNextImplementationTask: NONE
 - گارد ساختاری: موفق، ۸ پروژه تولید.
 - بررسی diff: بدون خطای whitespace.
 
-Code-SHA: c7b8c93bd1ea08da41673da476b4817546c03fef
+Baseline-Code-SHA: c7b8c93bd1ea08da41673da476b4817546c03fef
 CI: https://github.com/mrnikiemami-code/BazarKav/actions/runs/38423428401
 نتیجه: success؛ build بدون خطا و هشدار و هر ۸ تست PostgreSQL واقعی عبور کردند.
 جزئیات در docs/architecture/evidence/TENANT-001.md ثبت شده است.
