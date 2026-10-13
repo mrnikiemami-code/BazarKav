@@ -1,7 +1,7 @@
 # وضعیت فعلی بازارکاو
 
 تاریخ: 2026-10-13
-مرحله: TENANT_HTTP_REQUEST_BOUNDARY_FIX_PENDING_CI
+مرحله: TENANT_HTTP_REQUEST_BOUNDARY_FIX_COMPLETED
 Stop-State: USER_REVIEW
 automaticNextImplementationTask: NONE
 
@@ -11,7 +11,7 @@ automaticNextImplementationTask: NONE
 - گارد G16 در AGENTS.md، قواعد Cursor، سند معماری و ابزار CI اضافه شد.
 - گارد declaration نوع و نام فایل را بررسی می‌کند؛ تست metadata ورودی واقعی endpoint نیز اضافه شد.
 - بررسی محلی این اصلاح: build بدون خطا و هشدار؛ ArchitectureTests 8/8 و regression گارد 4/4.
-- نتیجه CI اصلاح جاری هنگام این snapshot هنوز در انتظار است؛ شواهد زیر مربوط به baseline قبلی Tenant هستند.
+- CI اصلاح جاری موفق است: 63/63 تست برنامه و 4/4 تست گارد، بدون شکست یا skip.
 
 - تصمیم قطعی: هر کسب‌وکار مستقل یک Tenant؛ یک کاربر می‌تواند چند Tenant داشته باشد.
 - ماژول Tenant با پنج پروژه مستقل، سه Command، دو Query و پنج validator.
@@ -30,7 +30,16 @@ automaticNextImplementationTask: NONE
 - solution، نسخه‌های مرکزی، lock fileها، global.json و گیت restore/build/test در CI.
 - تست‌های واحد، HTTP با TestServer و وابستگی assembly.
 
-## شواهد بررسی
+## شواهد اصلاح جاری
+
+Code-SHA: eb1ed75325b2b4e0fb23c7f17b13d6cb756ae925
+CI: https://github.com/mrnikiemami-code/BazarKav/actions/runs/38429067443
+Release build: صفر خطا و صفر هشدار.
+UnitTests: 28/28؛ IntegrationTests با PostgreSQL واقعی: 27/27؛ ArchitectureTests: 8/8.
+regression گارد HTTP: 4/4.
+جزئیات در docs/architecture/evidence/TENANT-REQUEST-BOUNDARY-001.md.
+
+## شواهد baseline قبلی Tenant
 
 - restore در locked mode: موفق.
 - Release build: صفر خطا و صفر هشدار.
