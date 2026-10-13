@@ -1,12 +1,31 @@
 name: Architecture guards
 on:
   push:
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
   pull_request:
 permissions:
   contents: read
 jobs:
   structure:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: bazarkav_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: bazarkav-ci-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d bazarkav_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      BAZARKAV_TEST_POSTGRES: Host=localhost;Port=5432;Database=bazarkav_test;Username=postgres;Password=bazarkav-ci-only
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

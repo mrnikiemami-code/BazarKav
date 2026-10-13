@@ -168,6 +168,28 @@
           "BazarKav.BuildingBlocks.Observability": "[1.0.0, )"
         }
       },
+      "bazarkav.tenant.application": {
+        "type": "Project",
+        "dependencies": {
+          "BazarKav.BuildingBlocks.Application": "[1.0.0, )",
+          "BazarKav.Tenant.Contracts": "[1.0.0, )",
+          "BazarKav.Tenant.Domain": "[1.0.0, )"
+        }
+      },
+      "bazarkav.tenant.contracts": {
+        "type": "Project"
+      },
+      "bazarkav.tenant.domain": {
+        "type": "Project"
+      },
+      "bazarkav.tenant.presentation": {
+        "type": "Project",
+        "dependencies": {
+          "BazarKav.BuildingBlocks.Web": "[1.0.0, )",
+          "BazarKav.Tenant.Application": "[1.0.0, )",
+          "BazarKav.Tenant.Contracts": "[1.0.0, )"
+        }
+      },
       "FluentValidation.DependencyInjectionExtensions": {
         "type": "CentralTransitive",
         "requested": "[12.0.0, )",

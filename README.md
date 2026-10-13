@@ -7,7 +7,10 @@
 - [وضعیت فعلی](docs/planning/CURRENT-STATE.md)
 - [دستور کار عامل‌ها](AGENTS.md)
 
-وضعیت: پایه مشترک Application، Observability و Web پیاده‌سازی شده؛ ماژول‌های کسب‌وکار هنوز ایجاد نشده‌اند.
+وضعیت: پایه مشترک و اولین ماژول Tenant پیاده‌سازی شده‌اند.
+
+- [معماری Tenant](docs/architecture/ADR-002-TENANT.md)
+- [اتصال Tenant و migration](docs/architecture/TENANT-INTEGRATION.md)
 
 ## اجرای بررسی‌ها
 

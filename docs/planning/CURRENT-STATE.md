@@ -1,11 +1,18 @@
 # وضعیت فعلی بازارکاو
 
 تاریخ: 2026-10-13
-مرحله: BUILDING_BLOCKS_001_COMPLETED
+مرحله: TENANT_001_IMPLEMENTED_PENDING_POSTGRES_CI
 Stop-State: USER_REVIEW
 automaticNextImplementationTask: NONE
 
 ## انجام‌شده
+
+- تصمیم قطعی: هر کسب‌وکار مستقل یک Tenant؛ یک کاربر می‌تواند چند Tenant داشته باشد.
+- ماژول Tenant با پنج پروژه مستقل، سه Command، دو Query و پنج validator.
+- ایجاد، دریافت، فهرست صفحه‌بندی‌شده، تغییر نام و چرخه وضعیت.
+- PostgreSQL و EF Core، migration و snapshot، Repository و QueryReader و UnitOfWork اختصاصی.
+- unique index، concurrency token و ExpectedVersion و کنترل atomic SaveChanges.
+- policy مدیریتی روی هر پنج route؛ بدون scheme یا header احراز هویت در کد تولید.
 
 - سه پروژه مستقل BuildingBlocks/Application، Observability و Web روی net10.0.
 - MediatR 12.5.0، قراردادهای ICommand/IQuery، Result/Error و رفتارهای Logging و Validation.
@@ -21,23 +28,24 @@ automaticNextImplementationTask: NONE
 
 - restore در locked mode: موفق.
 - Release build: صفر خطا و صفر هشدار.
-- UnitTests: 12/12.
-- IntegrationTests: 19/19.
-- ArchitectureTests: 3/3.
-- گارد ساختاری: موفق، ۳ پروژه تولید.
+- UnitTests: 28/28.
+- IntegrationTests محلی: 19/19؛ ۸ تست PostgreSQL به دلیل نبود سرویس محلی صریحاً skip شده‌اند.
+- ArchitectureTests: 6/6.
+- گارد ساختاری: موفق، ۸ پروژه تولید.
 - بررسی diff: بدون خطای whitespace.
 
-نتیجه CI از راه دور در این snapshot هنوز ثبت نشده است؛ نتیجه محلی جایگزین ادعای اجرای CI نیست.
+گیت PostgreSQL هنوز در این snapshot در انتظار CI است؛ پیش از اعلام تکمیل، نتیجه هر ۸ تست واقعی باید بررسی و ثبت شود.
 
 ## محدوده اجرا
 
-Host، ماژول کسب‌وکار، دیتابیس، آداپتر حسابداری و WebApp ایجاد نشده‌اند.
+Host، provider احراز هویت، عضویت کاربران، شعب، انبار، آداپتر حسابداری و WebApp ایجاد نشده‌اند.
+ماژول Tenant کتابخانه قابل اتصال است؛ اجرای HTTP فعلاً با TestServer در تست‌ها انجام می‌شود.
 کد TestServer فقط زیر tests است.
 BusinessId/BranchId/SourceId باید بعداً از زمینه معتبر دسترسی به scope اضافه شوند؛ از header دلخواه استخراج نمی‌شوند.
 exporter OpenTelemetry هنوز انتخاب و فعال نشده است.
 
 ## تصمیم‌های باز
 
-مرز نهایی ماژول‌ها، دیتابیس و frontend، تعریف شاخص‌ها، ترکیب قواعد مدیر و روال، سیاست دسترسی و رفع همپوشانی منابع.
+مرز سایر ماژول‌ها و frontend، تعریف شاخص‌ها، ترکیب قواعد مدیر و روال، provider احراز هویت و عضویت کاربران و رفع همپوشانی منابع.
 
 گام بعد فقط با تصمیم کاربر: ادامه طراحی دامین یا تعیین اولین ماژول.
