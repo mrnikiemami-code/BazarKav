@@ -1,7 +1,7 @@
 # وضعیت فعلی بازارکاو
 
 تاریخ: 2026-10-13
-مرحله: TENANT_001_IMPLEMENTED_PENDING_POSTGRES_CI
+مرحله: TENANT_001_COMPLETED
 Stop-State: USER_REVIEW
 automaticNextImplementationTask: NONE
 
@@ -24,17 +24,21 @@ automaticNextImplementationTask: NONE
 - solution، نسخه‌های مرکزی، lock fileها، global.json و گیت restore/build/test در CI.
 - تست‌های واحد، HTTP با TestServer و وابستگی assembly.
 
-## شواهد بررسی محلی
+## شواهد بررسی
 
 - restore در locked mode: موفق.
 - Release build: صفر خطا و صفر هشدار.
 - UnitTests: 28/28.
 - IntegrationTests محلی: 19/19؛ ۸ تست PostgreSQL به دلیل نبود سرویس محلی صریحاً skip شده‌اند.
+- CI با PostgreSQL واقعی: UnitTests 28/28، IntegrationTests 27/27 و ArchitectureTests 6/6؛ مجموع 61/61 و صفر skip.
 - ArchitectureTests: 6/6.
 - گارد ساختاری: موفق، ۸ پروژه تولید.
 - بررسی diff: بدون خطای whitespace.
 
-گیت PostgreSQL هنوز در این snapshot در انتظار CI است؛ پیش از اعلام تکمیل، نتیجه هر ۸ تست واقعی باید بررسی و ثبت شود.
+Code-SHA: c7b8c93bd1ea08da41673da476b4817546c03fef
+CI: https://github.com/mrnikiemami-code/BazarKav/actions/runs/38423428401
+نتیجه: success؛ build بدون خطا و هشدار و هر ۸ تست PostgreSQL واقعی عبور کردند.
+جزئیات در docs/architecture/evidence/TENANT-001.md ثبت شده است.
 
 ## محدوده اجرا
 
