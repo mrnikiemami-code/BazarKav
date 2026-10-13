@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <PackageReference Include="Mapster" />
     <ProjectReference Include="../Contracts/BazarKav.Tenant.Contracts.csproj" />
     <ProjectReference Include="../Application/BazarKav.Tenant.Application.csproj" />
     <ProjectReference Include="../../../BuildingBlocks/Web/BazarKav.BuildingBlocks.Web.csproj" />

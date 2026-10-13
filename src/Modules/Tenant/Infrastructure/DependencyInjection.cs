@@ -1,6 +1,7 @@
 using BazarKav.Tenant.Application.Abstractions;
 using BazarKav.Tenant.Infrastructure.Persistence;
 using BazarKav.Tenant.Infrastructure.Persistence.Repositories;
+using BazarKav.Tenant.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -12,6 +13,7 @@ public static class DependencyInjection
     public static IServiceCollection AddTenantInfrastructure(this IServiceCollection services, string connectionString)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
+        TenantProjection.Validate();
         services.AddDbContext<TenantDbContext>(options => options.UseNpgsql(connectionString));
         services.AddScoped<ITenantRepository, EfTenantRepository>();
         services.AddScoped<ITenantReader, EfTenantReader>();

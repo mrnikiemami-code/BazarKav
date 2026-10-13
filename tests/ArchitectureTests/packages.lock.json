@@ -34,6 +34,11 @@
         "resolved": "12.0.0",
         "contentHash": "8NVLxtMUXynRHJIX3Hn1ACovaqZIJASufXIIFkD0EUbcd5PmMsL1xUD5h548gCezJ5BzlITaR9CAMrGe29aWpA=="
       },
+      "Mapster.Core": {
+        "type": "Transitive",
+        "resolved": "10.0.13",
+        "contentHash": "fLj/MDJy16QiL7IULC0+e2YXh9nNDhtzdNl13R6CI0Qh6181eadA6EHykWkJWgTHdMjC5Ured3fq5x1QV7U9vg=="
+      },
       "MediatR.Contracts": {
         "type": "Transitive",
         "resolved": "2.0.1",
@@ -173,7 +178,8 @@
         "dependencies": {
           "BazarKav.BuildingBlocks.Application": "[1.0.0, )",
           "BazarKav.Tenant.Contracts": "[1.0.0, )",
-          "BazarKav.Tenant.Domain": "[1.0.0, )"
+          "BazarKav.Tenant.Domain": "[1.0.0, )",
+          "Mapster": "[10.0.13, )"
         }
       },
       "bazarkav.tenant.contracts": {
@@ -187,7 +193,8 @@
         "dependencies": {
           "BazarKav.BuildingBlocks.Web": "[1.0.0, )",
           "BazarKav.Tenant.Application": "[1.0.0, )",
-          "BazarKav.Tenant.Contracts": "[1.0.0, )"
+          "BazarKav.Tenant.Contracts": "[1.0.0, )",
+          "Mapster": "[10.0.13, )"
         }
       },
       "FluentValidation.DependencyInjectionExtensions": {
@@ -198,6 +205,15 @@
         "dependencies": {
           "FluentValidation": "12.0.0",
           "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
+        }
+      },
+      "Mapster": {
+        "type": "CentralTransitive",
+        "requested": "[10.0.13, )",
+        "resolved": "10.0.13",
+        "contentHash": "/FaFSm4W6rQp5kEZa7yTtvHH2yGmuC1p22Bg2zi83+W8SMJ+5RBTEWgRK0JS2S8jIdXj2hm2s4z1egjkE2azoQ==",
+        "dependencies": {
+          "Mapster.Core": "10.0.13"
         }
       },
       "MediatR": {

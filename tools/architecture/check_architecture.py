@@ -134,11 +134,22 @@ for path in (ROOT / "src").rglob("*.cs"):
             continue
         if not any(project.parent == ROOT.joinpath(*p[:4]) for project in projects):
             fail(path, "module layer needs its own csproj")
+        source = path.read_text(encoding="utf-8")
+        if re.search(r"\busing\s+(?:Mapster|MapsterMapper)\b", source):
+            valid_mapping_location = (
+                p[3] in {"Application", "Presentation"} and p[4] == "Mappings"
+                or p[3] == "Infrastructure" and p[4] == "Persistence")
+            if not valid_mapping_location:
+                fail(path, "Mapster mappings belong in Application/Presentation Mappings or Infrastructure/Persistence")
+        if "TypeAdapterConfig.GlobalSettings" in source:
+            fail(path, "global mutable Mapster configuration is forbidden")
+        if re.search(r"\.(?:Adapt|ProjectToType)\s*<[^>]+>\s*\(\s*\)", source):
+            fail(path, "Mapster calls must pass an explicit configuration")
         # *Request is reserved for HTTP input DTOs. Inspect declarations as well as
         # filenames so a combined TenantRequests.cs cannot bypass the location guard.
         request_types = re.findall(
             r"\b(?:class|record(?:\s+(?:class|struct))?|struct)\s+([A-Za-z_]\w*Request)\b",
-            path.read_text(encoding="utf-8"))
+            source)
         if request_types or path.name.endswith("Request.cs"):
             if p[3] != "Presentation" or len(p) < 6 or p[4] != "Requests":
                 fail(path, "HTTP request DTO belongs in Presentation/Requests, never Contracts")
@@ -153,7 +164,7 @@ for path in (ROOT / "src").rglob("*.cs"):
             required = "Validation"
         if required and (p[3] != "Application" or p[4] != required):
             fail(path, f"file belongs in Application/{required}")
-        if p[3] == "Application" and p[4] not in {"Commands", "Queries", "Validation", "DTOs", "Abstractions"}:
+        if p[3] == "Application" and p[4] not in {"Commands", "Queries", "Validation", "DTOs", "Abstractions", "Mappings"}:
             fail(path, "unapproved Application directory")
     elif p[:2] == ("src", "BuildingBlocks"):
         if len(p) < 4 or p[2] not in {"Application", "Observability", "Web"}:

@@ -1,11 +1,9 @@
 using BazarKav.BuildingBlocks.Web.Errors;
-using BazarKav.Tenant.Application.Commands.ChangeTenantStatus;
-using BazarKav.Tenant.Application.Commands.CreateTenant;
-using BazarKav.Tenant.Application.Commands.RenameTenant;
 using BazarKav.Tenant.Application.Queries.GetTenant;
 using BazarKav.Tenant.Application.Queries.ListTenants;
 using BazarKav.Tenant.Contracts;
 using BazarKav.Tenant.Presentation.Requests;
+using BazarKav.Tenant.Presentation.Mappings;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +20,7 @@ public static class TenantEndpoints
 
         group.MapPost("/", async (CreateTenantRequest request, ISender sender, HttpContext context, CancellationToken ct) =>
         {
-            var result = await sender.Send(new CreateTenantCommand(request.Code, request.Name), ct);
+            var result = await sender.Send(TenantRequestMapping.ToCommand(request), ct);
             return result.IsSuccess
                 ? Results.Created($"/api/v1/tenants/{result.Value.Id}", result.Value)
                 : result.ToHttpResult(context);
@@ -38,12 +36,12 @@ public static class TenantEndpoints
 
         group.MapPut("/{id:guid}/name", async (Guid id, RenameTenantRequest request,
             ISender sender, HttpContext context, CancellationToken ct) =>
-            (await sender.Send(new RenameTenantCommand(id, request.Name, request.ExpectedVersion), ct))
+            (await sender.Send(TenantRequestMapping.ToCommand(id, request), ct))
                 .ToHttpResult(context)).WithName("Tenant.Rename");
 
         group.MapPut("/{id:guid}/status", async (Guid id, ChangeTenantStatusRequest request,
             ISender sender, HttpContext context, CancellationToken ct) =>
-            (await sender.Send(new ChangeTenantStatusCommand(id, request.Status, request.Reason, request.ExpectedVersion), ct))
+            (await sender.Send(TenantRequestMapping.ToCommand(id, request), ct))
                 .ToHttpResult(context)).WithName("Tenant.ChangeStatus");
         return endpoints;
     }

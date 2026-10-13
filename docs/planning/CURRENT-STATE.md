@@ -1,11 +1,18 @@
 # وضعیت فعلی بازارکاو
 
 تاریخ: 2026-10-13
-مرحله: TENANT_HTTP_REQUEST_BOUNDARY_FIX_COMPLETED
+مرحله: TENANT_MAPSTER_IMPLEMENTED_PENDING_CI
 Stop-State: USER_REVIEW
 automaticNextImplementationTask: NONE
 
 ## انجام‌شده
+
+- Mapster 10.0.13 طبق تصمیم کاربر استاندارد نگاشت شد.
+- Entity به DTO در Application/Mappings، Request به Command در Presentation/Mappings و projection در Infrastructure.
+- configuration صریح و compile‌شده؛ بدون GlobalSettings و بدون وابستگی Domain به Mapster.
+- گارد G17 و regressionهای آن اضافه شدند.
+- محلی: build بدون خطا و هشدار، 5/5 تست نگاشت، 8/8 تست معماری و 7/7 تست گارد.
+- CI نگاشت PostgreSQL در این snapshot هنوز در انتظار است؛ شواهد زیر تاریخچه تأییدهای قبلی‌اند.
 
 - اصلاح مرز HTTP: سه Request از Contracts به فایل‌های مستقل Presentation/Requests منتقل شدند.
 - گارد G16 در AGENTS.md، قواعد Cursor، سند معماری و ابزار CI اضافه شد.

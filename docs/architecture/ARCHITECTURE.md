@@ -122,6 +122,7 @@ src/
             <Name>Validator.cs
         DTOs/
         Abstractions/
+        Mappings/
       Infrastructure/
         Persistence/
           Configurations/
@@ -132,6 +133,7 @@ src/
       Presentation/
         Endpoints/
         Requests/
+        Mappings/
         DependencyInjection.cs
       Contracts/
   WebApp/
@@ -155,6 +157,7 @@ tools/
 
 - endpoint فقط درخواست را به ISender ارسال می‌کند؛ دسترسی مستقیم به DbContext، Repository یا آداپتر ندارد.
 - DTO ورودی HTTP با پسوند Request فقط در Presentation/Requests و در فایل مستقل هم‌نام تعریف می‌شود؛ endpoint آن را به Command یا Query تبدیل می‌کند. این wrapperها در Contracts قرار نمی‌گیرند.
+- Mapster استاندارد نگاشت مکانیکی است. تنظیمات صریح در Mappings هر لایه و projection در Infrastructure/Persistence قرار می‌گیرند؛ Domain مستقل است. نگاشت قواعد خطا، ساخت aggregate و انتخاب شناسه معتبر به تبدیل خودکار سپرده نمی‌شوند.
 - Command تغییر وضعیت داخلی برنامه، مانند تنظیم قاعده، تطبیق یا شروع کار تحلیل را بیان می‌کند؛ مجوز تغییر حسابداری بیرونی نیست.
 - Query فقط می‌خواند؛ تغییر وضعیت کسب‌وکار یا شروع پنهانی همگام‌سازی ممنوع است.
 - handlerهای Command در Commands و handlerهای Query در Queries قرار می‌گیرند.

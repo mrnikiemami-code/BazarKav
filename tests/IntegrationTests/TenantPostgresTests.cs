@@ -5,6 +5,8 @@ using System.Text.Encodings.Web;
 using BazarKav.BuildingBlocks.Application;
 using BazarKav.BuildingBlocks.Web;
 using BazarKav.Tenant.Application.Abstractions;
+using BazarKav.Tenant.Application.Mappings;
+using BazarKav.Tenant.Infrastructure.Persistence.Configurations;
 using BazarKav.Tenant.Contracts;
 using BazarKav.Tenant.Domain.ValueObjects;
 using BazarKav.Tenant.Infrastructure;
@@ -245,6 +247,28 @@ public sealed class TenantPostgresTests : IAsyncLifetime
         Assert.Equal(1, page.TotalCount);
         Assert.Empty(db.ChangeTracker.Entries());
         Assert.Empty((await reader.ListAsync(2, 1, TenantState.Active, default)).Items);
+    }
+
+    [PostgresFact]
+    public async Task Mapster_projection_matches_persisted_entities_in_every_status()
+    {
+        await using var db = NewContext();
+        foreach (var state in new[] { TenantStatus.SettingUp, TenantStatus.Active, TenantStatus.Suspended })
+        {
+            var tenant = TenantEntity.Create(Guid.NewGuid(), $"map-{(int)state}", "فروشگاه", DateTimeOffset.UtcNow);
+            if (state != TenantStatus.SettingUp) tenant.ChangeStatus(TenantStatus.Active, null, DateTimeOffset.UtcNow);
+            if (state == TenantStatus.Suspended) tenant.ChangeStatus(state, "دلیل", DateTimeOffset.UtcNow);
+            db.Tenants.Add(tenant);
+        }
+        await db.SaveChangesAsync();
+        db.ChangeTracker.Clear();
+        var reader = new EfTenantReader(db);
+        var entities = await db.Tenants.AsNoTracking().ToListAsync();
+        foreach (var entity in entities)
+            Assert.Equal(TenantMapping.ToDto(entity), await reader.GetAsync(entity.Id, default));
+        var sql = TenantProjection.ToDtos(db.Tenants.AsNoTracking()).ToQueryString();
+        Assert.Contains("suspension_reason", sql);
+        Assert.Empty(db.ChangeTracker.Entries());
     }
 
     [PostgresFact]

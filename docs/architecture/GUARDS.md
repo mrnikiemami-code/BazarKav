@@ -20,6 +20,7 @@
 | G14 | Query بدون تغییر وضعیت؛ Command داخلی بدون نوشتن در حسابداری |
 | G15 | registry مدیریت Tenant فقط با principal احرازشده و permission مدیریتی؛ header انتخاب Tenant مجوز نیست |
 | G16 | ورودی HTTP با پسوند Request فقط در Presentation/Requests و هر نوع در فایل مستقل؛ Contracts محل wrapperهای HTTP نیست |
+| G17 | نگاشت مکانیکی با Mapster، تنظیمات صریح و compile‌شده؛ بدون GlobalSettings و نگاشت مستقیم HTTP به Entity |
 
 ## گارد خودکار فعلی
 

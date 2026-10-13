@@ -1,6 +1,6 @@
 using BazarKav.BuildingBlocks.Application.Abstractions;
 using BazarKav.Tenant.Application.Abstractions;
-using BazarKav.Tenant.Application.DTOs;
+using BazarKav.Tenant.Application.Mappings;
 using BazarKav.Tenant.Contracts;
 using MediatR;
 using TenantEntity = BazarKav.Tenant.Domain.Entities.Tenant;

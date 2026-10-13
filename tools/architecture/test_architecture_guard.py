@@ -1,4 +1,4 @@
-"""Regression checks for HTTP request DTO placement, using isolated source fixtures."""
+"""Regression checks for request placement and mapping policy, using isolated fixtures."""
 from pathlib import Path
 import shutil
 import subprocess
@@ -7,7 +7,7 @@ import tempfile
 import unittest
 
 
-class HttpRequestPlacementTests(unittest.TestCase):
+class ArchitectureGuardTests(unittest.TestCase):
     def setUp(self):
         self.scratch = tempfile.TemporaryDirectory()
         self.addCleanup(self.scratch.cleanup)
@@ -55,6 +55,29 @@ class HttpRequestPlacementTests(unittest.TestCase):
         result = self.run_guard()
         self.assertNotEqual(0, result.returncode)
         self.assertIn("each HTTP request DTO needs its own matching file", result.stdout)
+
+    def test_global_mapster_configuration_is_rejected(self):
+        self.write("src/Modules/Demo/Presentation/Mappings/DemoMapping.cs",
+                   "using Mapster; public class DemoMapping { "
+                   "public object Config => TypeAdapterConfig.GlobalSettings; }")
+        result = self.run_guard()
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("global mutable Mapster configuration is forbidden", result.stdout)
+
+    def test_mapster_without_configuration_is_rejected(self):
+        self.write("src/Modules/Demo/Presentation/Mappings/DemoMapping.cs",
+                   "using Mapster; public class DemoMapping { "
+                   "public object Map(object value) => value.Adapt<object>(); }")
+        result = self.run_guard()
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("Mapster calls must pass an explicit configuration", result.stdout)
+
+    def test_mapster_outside_mapping_locations_is_rejected(self):
+        self.write("src/Modules/Demo/Presentation/Endpoints/DemoEndpoint.cs",
+                   "using Mapster; public class DemoEndpoint {}")
+        result = self.run_guard()
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("Mapster mappings belong in", result.stdout)
 
 
 if __name__ == "__main__":

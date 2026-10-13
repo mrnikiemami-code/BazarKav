@@ -33,7 +33,7 @@ jobs:
           python-version: '3.12'
       - name: Check architecture structure
         run: python tools/architecture/check_architecture.py
-      - name: Verify HTTP request guard regressions
+      - name: Verify request and mapping guard regressions
         run: python tools/architecture/test_architecture_guard.py
       - uses: actions/setup-dotnet@v4
         with:
