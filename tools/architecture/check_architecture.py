@@ -78,8 +78,8 @@ for path, info in projects.items():
     pure = info[0] == "module" and info[2] in {"Domain", "Contracts"}
     for node in nodes:
         tag = node.tag.rsplit("}", 1)[-1]
-        if pure and tag == "PackageReference":
-            fail(path, "Domain/Contracts cannot reference packages")
+        if pure and tag in {"PackageReference", "FrameworkReference", "Reference"}:
+            fail(path, "Domain/Contracts cannot reference external packages/frameworks/assemblies")
         if tag == "Import":
             fail(path, "custom project imports need an explicit architecture guard decision")
         if tag == "ProjectReference":
@@ -148,6 +148,8 @@ for path in (ROOT / "src").rglob("*.cs"):
     elif p[:2] == ("src", "BuildingBlocks"):
         if len(p) < 4 or p[2] not in {"Application", "Observability", "Web"}:
             fail(path, "unapproved BuildingBlocks area")
+        elif not any(project.parent == ROOT.joinpath(*p[:3]) for project in projects):
+            fail(path, "BuildingBlocks area needs its own csproj")
     else:
         fail(path, "production C# must be in Host, Modules or BuildingBlocks")
 

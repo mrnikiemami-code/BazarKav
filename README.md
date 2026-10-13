@@ -7,4 +7,15 @@
 - [وضعیت فعلی](docs/planning/CURRENT-STATE.md)
 - [دستور کار عامل‌ها](AGENTS.md)
 
-وضعیت: مبنای معماری ثبت شده؛ پیاده‌سازی محصول هنوز آغاز نشده است.
+وضعیت: پایه مشترک Application، Observability و Web پیاده‌سازی شده؛ ماژول‌های کسب‌وکار هنوز ایجاد نشده‌اند.
+
+## اجرای بررسی‌ها
+
+```bash
+python3 tools/architecture/check_architecture.py
+dotnet restore BazarKav.sln --locked-mode
+dotnet build BazarKav.sln -c Release --no-restore
+dotnet test BazarKav.sln -c Release --no-build --no-restore
+```
+
+[تصمیم‌های BuildingBlocks و نسخه‌ها](docs/architecture/ADR-001-BUILDING-BLOCKS.md)

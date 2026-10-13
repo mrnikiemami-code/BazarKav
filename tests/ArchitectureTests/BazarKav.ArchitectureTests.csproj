@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><IsTestProject>true</IsTestProject><IsPackable>false</IsPackable></PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <ProjectReference Include="../../src/BuildingBlocks/Application/BazarKav.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="../../src/BuildingBlocks/Observability/BazarKav.BuildingBlocks.Observability.csproj" />
+    <ProjectReference Include="../../src/BuildingBlocks/Web/BazarKav.BuildingBlocks.Web.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <ProjectReference Include="../Application/BazarKav.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="../Observability/BazarKav.BuildingBlocks.Observability.csproj" />
+  </ItemGroup>
+</Project>

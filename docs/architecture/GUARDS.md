@@ -31,7 +31,7 @@ python3 tools/architecture/check_architecture.py
 ProjectReference مشترک در فایل props/targets فعلاً ممنوع است تا ارجاع پنهان ایجاد نشود.
 کد مشترک تولید باید داخل BuildingBlocks باشد؛ C# خارج از ریشه‌های تعیین‌شده مجاز نیست.
 
-معنای کد، امنیت، schema و behavior runtime با این ابزار اثبات نمی‌شود. پس از شروع کدنویسی، ArchitectureTests برای وابستگی assembly/type و integration tests برای isolation، آداپتر خواندنی، خطا، correlation و کیفیت داده اضافه می‌شوند.
+معنای کد، امنیت، schema و behavior runtime با این ابزار اثبات نمی‌شود. اکنون ArchitectureTests برای وابستگی assemblyهای BuildingBlocks و integration tests برای خطا، correlation، trace و لاگ موجودند. تست isolation، آداپتر خواندنی و کیفیت داده هنگام ایجاد ماژول‌های مربوط اضافه می‌شوند.
 
 ## گیت تحویل
 

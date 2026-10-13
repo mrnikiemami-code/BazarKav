@@ -14,3 +14,12 @@ jobs:
           python-version: '3.12'
       - name: Check architecture structure
         run: python tools/architecture/check_architecture.py
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Restore pinned dependencies
+        run: dotnet restore BazarKav.sln --locked-mode
+      - name: Build
+        run: dotnet build BazarKav.sln -c Release --no-restore
+      - name: Test
+        run: dotnet test BazarKav.sln -c Release --no-build --no-restore
